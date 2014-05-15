@@ -26,7 +26,7 @@ public class MongoTest {
 			/**
 			 * Connect to Mongo DB
 			 */
-			MongoClient mongo = new MongoClient("oceanic.mongohq.com", 10099);
+			MongoClient mongo = new MongoClient("oceanic.mongohq.com", 10062);
 
 			/**
 			 * Connect to DB
@@ -39,7 +39,7 @@ public class MongoTest {
 			/**
 			 * authenticate to Mongo HQ
 			 */
-			boolean auth = db.authenticate("unh", "unh".toCharArray());
+			boolean auth = db.authenticate("rishiban", "rishiban".toCharArray());
 			if (auth == false) {
 				System.out.println("Could not authenticate");
 			}
@@ -47,15 +47,17 @@ public class MongoTest {
 			/**
 			 * get a handler to books collection
 			 */
-			DBCollection booksColl = db.getCollection("books");
+			DBCollection booksColl = db.getCollection("luckypants");
 
 			/**
 			 * add a book to books table (collection)
 			 */
 			BasicDBObject document = new BasicDBObject();
 			document.put("title", "Lucky Pants");
-			document.put("author", "John Doe");
-			document.put("ISBN", "1234");
+			document.put("author", "Author");
+			document.put("ISBN", "4444");
+			document.put("pages", 600);
+			document.put("publisher","Pearson");
 			booksColl.insert(document);
 
 			/**

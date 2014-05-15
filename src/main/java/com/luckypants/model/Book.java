@@ -6,6 +6,20 @@ public class Book {
 	private String title;
 	private String author;
 	private String ISBN;
+	private String pages;
+	public String getPages() {
+		return pages;
+	}
+	public void setPages(String pages) {
+		this.pages = pages;
+	}
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+	private String publisher;
 	
 	public String getTitle() {
 		return title;
