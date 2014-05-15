@@ -56,7 +56,7 @@ public class MongoTest {
 			document.put("title", "Lucky Pants");
 			document.put("author", "Author");
 			document.put("ISBN", "4444");
-			document.put("pages", 600);
+			document.put("pages", "600");
 			document.put("publisher","Pearson");
 			booksColl.insert(document);
 
