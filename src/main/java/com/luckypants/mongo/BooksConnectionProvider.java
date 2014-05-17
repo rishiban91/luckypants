@@ -16,19 +16,19 @@ public class BooksConnectionProvider {
 	public DBCollection getCollection() {
 		try {
 
-			MongoClient mongo = new MongoClient("oceanic.mongohq.com", 10099);
+			MongoClient mongo = new MongoClient("oceanic.mongohq.com", 10062);
 
 			DB db = mongo.getDB("luckypants");
 			if (db == null) {
 				System.out.println("Could not connect to Database");
 			}
 
-			boolean auth = db.authenticate("unh", "unh".toCharArray());
+			boolean auth = db.authenticate("rishiban", "rishiban".toCharArray());
 			if (auth == false) {
 				System.out.println("Could not authenticate");
 			}
 
-			DBCollection booksColl = db.getCollection("books");
+			DBCollection booksColl = db.getCollection("luckypants");
 			return booksColl;
 
 		} catch (UnknownHostException e) {
