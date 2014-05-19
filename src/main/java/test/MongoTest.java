@@ -5,7 +5,7 @@ package test;
  * http://www.mkyong.com/mongodb/java-mongodb-hello-world-example/
  */
 import java.net.UnknownHostException;
-import java.util.Date;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -14,8 +14,9 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 
 /**
- * this is a test class with some sample code for you to try your Mongo HQ connection
- * Do not use this same connection, create your own account/DB and user
+ * this is a test class with some sample code for you to try your Mongo HQ
+ * connection Do not use this same connection, create your own account/DB and
+ * user
  * 
  */
 public class MongoTest {
@@ -26,7 +27,7 @@ public class MongoTest {
 			/**
 			 * Connect to Mongo DB
 			 */
-			MongoClient mongo = new MongoClient("oceanic.mongohq.com", 10062);
+			MongoClient mongo = new MongoClient("oceanic.mongohq.com", 10099);
 
 			/**
 			 * Connect to DB
@@ -39,7 +40,7 @@ public class MongoTest {
 			/**
 			 * authenticate to Mongo HQ
 			 */
-			boolean auth = db.authenticate("rishiban", "rishiban".toCharArray());
+			boolean auth = db.authenticate("unh", "unh".toCharArray());
 			if (auth == false) {
 				System.out.println("Could not authenticate");
 			}
@@ -47,17 +48,15 @@ public class MongoTest {
 			/**
 			 * get a handler to books collection
 			 */
-			DBCollection booksColl = db.getCollection("luckypants");
+			DBCollection booksColl = db.getCollection("books");
 
 			/**
 			 * add a book to books table (collection)
 			 */
 			BasicDBObject document = new BasicDBObject();
 			document.put("title", "Lucky Pants");
-			document.put("author", "Author");
-			document.put("ISBN", "4444");
-			document.put("pages", "600");
-			document.put("publisher","Pearson");
+			document.put("author", "John Doe");
+			document.put("ISBN", "1234");
 			booksColl.insert(document);
 
 			/**
@@ -71,39 +70,37 @@ public class MongoTest {
 			while (cursor.hasNext()) {
 				System.out.println(cursor.next());
 			}
-			
+
 			/**
 			 * update a book - this will update only one record
 			 */
 			searchQuery.put("title", "Lucky Pants");
-		 
+
 			BasicDBObject newDocument = new BasicDBObject();
 			newDocument.put("titile", "Super Pants");
-		 
+
 			BasicDBObject updateObj = new BasicDBObject();
 			updateObj.put("$set", newDocument);
-		 
+
 			booksColl.update(searchQuery, updateObj);
-			
 
 			/**
 			 * Delete book by title - this will delete only one book
 			 */
 			searchQuery.put("title", "Lucky Pants");
 			booksColl.remove(searchQuery);
-			
+
 			/**
 			 * Delete all books by title
 			 */
 			searchQuery.put("title", "Lucky Pants");
-			
+
 			cursor = booksColl.find(searchQuery);
 
 			while (cursor.hasNext()) {
 				booksColl.remove(searchQuery);
 			}
-			
-			
+
 			/**
 			 * End
 			 */
