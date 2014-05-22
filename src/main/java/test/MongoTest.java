@@ -40,7 +40,7 @@ public class MongoTest {
 			/**
 			 * authenticate to Mongo HQ
 			 */
-			boolean auth = db.authenticate("unh", "unh".toCharArray());
+			boolean auth = db.authenticate("rishiban", "rishiban".toCharArray());
 			if (auth == false) {
 				System.out.println("Could not authenticate");
 			}
@@ -48,7 +48,7 @@ public class MongoTest {
 			/**
 			 * get a handler to books collection
 			 */
-			DBCollection booksColl = db.getCollection("books");
+			DBCollection booksColl = db.getCollection("luckypants");
 
 			/**
 			 * add a book to books table (collection)

@@ -12,6 +12,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.mongodb.DBCursor;
+import com.mongodb.DB;
+
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.luckypants.command.CreateBookCommand;
@@ -19,6 +22,8 @@ import com.luckypants.command.DeleteBookCommand;
 import com.luckypants.command.GetBookCommand;
 import com.luckypants.command.ListAllBooksCommand;
 import com.luckypants.model.Book;
+import com.luckypants.mongo.BooksConnectionProvider;
+import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 
 @Path("/books")
@@ -36,11 +41,28 @@ public class BookService {
 	@GET
 	@Path("/{isbn}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getBook(@PathParam("isbn") String isbn) {
-		GetBookCommand getBookCommand = new GetBookCommand();
-		DBObject book = getBookCommand.execute(isbn);
-		return Response.status(200).entity(book).build();
+	public Response getBook(@PathParam("isbn") String ISBN) {
+	 
+	ArrayList<DBObject> result=new ArrayList<DBObject>() ;
+	BooksConnectionProvider booksConn = new BooksConnectionProvider();
+	DBCollection booksCollection = booksConn.getCollection();
+	 
+	DBCursor cursor = booksCollection.find();
+	while(cursor.hasNext()){
+	DBObject obj = cursor.next();
+	  if( obj.get("author")!=null && obj.get("author").equals(ISBN)){
+	result.add(obj);
+	}else if( obj.get("title")!=null && obj.get("title").equals(ISBN)){
+	result.add(obj);
+	}else if( obj.get("isbn")!=null && obj.get("isbn").equals(ISBN)){
+	result.add(obj);
 	}
+	}
+	  
+	return Response.status(200).entity(result).build();
+	}
+
+
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
